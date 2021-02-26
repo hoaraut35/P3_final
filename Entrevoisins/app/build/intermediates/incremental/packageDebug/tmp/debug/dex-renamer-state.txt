@@ -1,7 +1,0 @@
-#Mon Feb 22 16:19:59 CET 2021
-base.0=C\:\\Users\\perso\\Desktop\\p3_19022021\\p3_test-master\\Entrevoisins\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-path.1=classes.dex
-renamed.1=classes2.dex
-path.0=classes.dex
-renamed.0=classes.dex
-base.1=C\:\\Users\\perso\\Desktop\\p3_19022021\\p3_test-master\\Entrevoisins\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
