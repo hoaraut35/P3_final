@@ -108,6 +108,9 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
     public void onClickDelete(int position,Neighbour voisinToDel)
     {
         Log.i("THOMAS", "[NeighbourFragment] [callback] Clic sur un voisin à la position " + position);
+        mApiService.deleteNeighbour(voisinToDel);
+        initList();
+        //Disable in this mode without eventbus
         EventBus.getDefault().post(new DeleteNeighbourEvent(voisinToDel));
     }
 
