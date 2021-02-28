@@ -104,7 +104,9 @@ public class NeighbourFavoritesFragment extends Fragment implements MyNeighbourR
     public void onClickDelete(int position, Neighbour voisinToDel)
     {
         Log.i("THOMAS", "[NeighbourFavoritesFragment] [callback] Clic sur un voisin à la position " + position);
-        EventBus.getDefault().post(new DeleteFavoriteNeighbourEvent(voisinToDel));
+        mApiService.removeFavoriteNeighbour(voisinToDel);
+        initList();
+        //EventBus.getDefault().post(new DeleteFavoriteNeighbourEvent(voisinToDel));
     }
 
     @Override
