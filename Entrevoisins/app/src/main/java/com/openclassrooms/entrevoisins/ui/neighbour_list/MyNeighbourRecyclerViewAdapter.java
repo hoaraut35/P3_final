@@ -27,9 +27,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     private final List<Neighbour> mNeighbours;
 
     //TODO : modification du constructeur pour gérer les deux méthodes
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items)
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, Listener callback)
     {
         this.mNeighbours = items;
+        this.callback = callback;
      }
 
     //ici on utilise la maquette layout pour l'item
