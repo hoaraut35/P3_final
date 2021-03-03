@@ -22,7 +22,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     private final List<Neighbour> mNeighbours;
 
-    //TODO : méthode 2 avec une interface de callback
+    //TODO : méthode avec une interface de callback
     public interface Listener
     {
         void onClickDelete(int position, Neighbour voisinToDel);
@@ -37,7 +37,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         this.callback = callback;
     }
 
-    //ici on utilise la maquette layout pour l'item
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
@@ -58,7 +57,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             .into(holder.mNeighbourAvatar);
 
 
-        //TODO: méthode 2 avec callback
+        //TODO: méthode avec callback
         holder.mDeleteButton.setOnClickListener(items -> callback.onClickDelete(position, mNeighbours.get(position)));
         holder.itemView.setOnClickListener(items -> callback.onClickDetail(position,mNeighbours.get(position)));
 

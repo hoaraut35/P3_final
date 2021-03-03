@@ -64,10 +64,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         return view;
     }
 
-
-
-
-
     /**
      * Init the List of neighbours
      */
@@ -110,7 +106,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         Log.i("THOMAS", "[NeighbourFragment] [callback] Clic sur un voisin à la position " + position);
         mApiService.deleteNeighbour(voisinToDel);
         initList();
-        //EventBus.getDefault().post(new DeleteNeighbourEvent(voisinToDel));
     }
 
     @Override
