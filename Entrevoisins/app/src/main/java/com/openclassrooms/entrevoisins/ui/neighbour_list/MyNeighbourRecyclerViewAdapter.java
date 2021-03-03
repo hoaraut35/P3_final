@@ -11,7 +11,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.OpenDetailNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -22,20 +26,11 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     private final List<Neighbour> mNeighbours;
 
-    //TODO : méthode 2 avec une interface de callback
-    public interface Listener
-    {
-        void onClickDelete(int position, Neighbour voisinToDel);
-        void onClickDetail(int position, Neighbour voisinToOpen);
-    }
-    private Listener callback;
-
     //TODO : modification du constructeur pour gérer les deux méthodes
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, Listener callback)
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items)
     {
         this.mNeighbours = items;
-        this.callback = callback;
-    }
+     }
 
     //ici on utilise la maquette layout pour l'item
     @Override
@@ -58,9 +53,22 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             .into(holder.mNeighbourAvatar);
 
 
-        //TODO: méthode 2 avec callback
-        holder.mDeleteButton.setOnClickListener(items -> callback.onClickDelete(position, mNeighbours.get(position)));
-        holder.itemView.setOnClickListener(items -> callback.onClickDetail(position,mNeighbours.get(position)));
+        //TODO: méthode  avec event
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new DeleteNeighbourEvent(mNeighbours.get(position)));
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new OpenDetailNeighbourEvent(mNeighbours.get(position)));
+            }
+        });
+
+        //holder.itemView.setOnClickListener(items -> callback.onClickDetail(position,mNeighbours.get(position)));
 
     }
 

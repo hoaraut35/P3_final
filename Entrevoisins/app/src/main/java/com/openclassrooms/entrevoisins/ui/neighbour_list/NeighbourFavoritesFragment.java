@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 //TODO : implémenter de l'interface listener
-public class NeighbourFavoritesFragment extends Fragment implements MyNeighbourRecyclerViewAdapter.Listener
+public class NeighbourFavoritesFragment extends Fragment
 {
     private List<Neighbour> mFavoritesNeighbours;
     private NeighbourApiService mApiService;
@@ -54,7 +54,7 @@ public class NeighbourFavoritesFragment extends Fragment implements MyNeighbourR
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mFavoritesNeighbours  = mApiService.getFavoritesNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours,this ));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours ));
 
         return view;
 
@@ -84,7 +84,7 @@ public class NeighbourFavoritesFragment extends Fragment implements MyNeighbourR
     private void initList()
     {
         mFavoritesNeighbours  = mApiService.getFavoritesNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours,this));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours));
     }
 
     /**
@@ -100,7 +100,7 @@ public class NeighbourFavoritesFragment extends Fragment implements MyNeighbourR
     }
 
     //TODO: callback du 18/02/2021
-    @Override
+   /* @Override
     public void onClickDelete(int position, Neighbour voisinToDel)
     {
         Log.i("THOMAS", "[NeighbourFavoritesFragment] [callback] Clic sur un voisin à la position " + position);
@@ -109,9 +109,11 @@ public class NeighbourFavoritesFragment extends Fragment implements MyNeighbourR
         //Disable in this mode without eventbus
         EventBus.getDefault().post(new DeleteFavoriteNeighbourEvent(voisinToDel));
     }
-
-    @Override
+*/
+    /*@Override
     public void onClickDetail(int position, Neighbour voisinToOpen) {
         //ne rien faire car cette méthode concerne uniquement le voisin non favoris
     }
+
+     */
 }

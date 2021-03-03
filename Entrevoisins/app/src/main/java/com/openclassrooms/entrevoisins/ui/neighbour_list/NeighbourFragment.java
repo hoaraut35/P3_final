@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.events.OpenDetailNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -27,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 //TODO: implementer l'interface listener et override la méthode
-public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerViewAdapter.Listener{
+public class NeighbourFragment extends Fragment  {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
@@ -73,7 +74,7 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, this));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
     }
 
     @Override
@@ -104,7 +105,19 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         initList();
     }
 
-    @Override
+    @Subscribe
+    public void onDetailNeighbour(OpenDetailNeighbourEvent event)
+    {
+        //Log.i("THOMAS", "[NeighbourFragment] [callback] Clic pour détail d'un voisin " + event.neighbour.position);
+        Intent OpenDetailWithObject = new Intent(NeighbourFragment.super.getContext(), DetailNeighbourActivity.class);
+        Gson gson = new Gson();
+        OpenDetailWithObject.putExtra("neighbour_object", gson.toJson(event.neighbour));
+        startActivity(OpenDetailWithObject);
+    }
+
+
+
+    /*@Override
     public void onClickDelete(int position,Neighbour voisinToDel)
     {
         Log.i("THOMAS", "[NeighbourFragment] [callback] Clic sur un voisin à la position " + position);
@@ -112,9 +125,9 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         initList();
         //Disable in this mode without eventbus
         EventBus.getDefault().post(new DeleteNeighbourEvent(voisinToDel));
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onClickDetail(int position, Neighbour voisinToOpen) {
         Log.i("THOMAS", "[NeighbourFragment] [callback] Clic pour détail d'un voisin " + position);
         Intent OpenDetailWithObject = new Intent(NeighbourFragment.super.getContext(), DetailNeighbourActivity.class);
@@ -122,4 +135,6 @@ public class NeighbourFragment extends Fragment implements MyNeighbourRecyclerVi
         OpenDetailWithObject.putExtra("neighbour_object", gson.toJson(mNeighbours.get(position)));
         startActivity(OpenDetailWithObject);
     }
+
+     */
 }
