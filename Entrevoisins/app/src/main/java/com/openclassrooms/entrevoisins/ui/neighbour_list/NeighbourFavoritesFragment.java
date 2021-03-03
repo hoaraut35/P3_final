@@ -54,7 +54,7 @@ public class NeighbourFavoritesFragment extends Fragment
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mFavoritesNeighbours  = mApiService.getFavoritesNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours ));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours , "favorites"));
 
         return view;
 
@@ -84,7 +84,7 @@ public class NeighbourFavoritesFragment extends Fragment
     private void initList()
     {
         mFavoritesNeighbours  = mApiService.getFavoritesNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavoritesNeighbours, "favorites"));
     }
 
     /**
@@ -99,21 +99,4 @@ public class NeighbourFavoritesFragment extends Fragment
         initList();
     }
 
-    //TODO: callback du 18/02/2021
-   /* @Override
-    public void onClickDelete(int position, Neighbour voisinToDel)
-    {
-        Log.i("THOMAS", "[NeighbourFavoritesFragment] [callback] Clic sur un voisin à la position " + position);
-        mApiService.removeFavoriteNeighbour(voisinToDel);
-        initList();
-        //Disable in this mode without eventbus
-        EventBus.getDefault().post(new DeleteFavoriteNeighbourEvent(voisinToDel));
-    }
-*/
-    /*@Override
-    public void onClickDetail(int position, Neighbour voisinToOpen) {
-        //ne rien faire car cette méthode concerne uniquement le voisin non favoris
-    }
-
-     */
 }

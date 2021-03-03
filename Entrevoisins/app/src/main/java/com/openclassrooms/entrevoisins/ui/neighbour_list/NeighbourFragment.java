@@ -33,9 +33,7 @@ public class NeighbourFragment extends Fragment  {
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
     private RecyclerView mRecyclerView;
-
     public String VAL_POSITION;
-
 
     /**
      * Create and return a new instance
@@ -65,16 +63,12 @@ public class NeighbourFragment extends Fragment  {
         return view;
     }
 
-
-
-
-
     /**
      * Init the List of neighbours
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, "base"));
     }
 
     @Override
@@ -108,33 +102,10 @@ public class NeighbourFragment extends Fragment  {
     @Subscribe
     public void onDetailNeighbour(OpenDetailNeighbourEvent event)
     {
-        //Log.i("THOMAS", "[NeighbourFragment] [callback] Clic pour détail d'un voisin " + event.neighbour.position);
         Intent OpenDetailWithObject = new Intent(NeighbourFragment.super.getContext(), DetailNeighbourActivity.class);
         Gson gson = new Gson();
         OpenDetailWithObject.putExtra("neighbour_object", gson.toJson(event.neighbour));
         startActivity(OpenDetailWithObject);
     }
 
-
-
-    /*@Override
-    public void onClickDelete(int position,Neighbour voisinToDel)
-    {
-        Log.i("THOMAS", "[NeighbourFragment] [callback] Clic sur un voisin à la position " + position);
-        mApiService.deleteNeighbour(voisinToDel);
-        initList();
-        //Disable in this mode without eventbus
-        EventBus.getDefault().post(new DeleteNeighbourEvent(voisinToDel));
-    }*/
-
-    /*@Override
-    public void onClickDetail(int position, Neighbour voisinToOpen) {
-        Log.i("THOMAS", "[NeighbourFragment] [callback] Clic pour détail d'un voisin " + position);
-        Intent OpenDetailWithObject = new Intent(NeighbourFragment.super.getContext(), DetailNeighbourActivity.class);
-        Gson gson = new Gson();
-        OpenDetailWithObject.putExtra("neighbour_object", gson.toJson(mNeighbours.get(position)));
-        startActivity(OpenDetailWithObject);
-    }
-
-     */
 }

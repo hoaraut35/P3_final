@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.events.DeleteFavoriteNeighbourEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.events.OpenDetailNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
@@ -25,15 +27,15 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder>  {
 
     private final List<Neighbour> mNeighbours;
+    private String version;
 
-    //TODO : modification du constructeur pour gérer les deux méthodes
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, Listener callback)
+    //TODO : modification du constructeur pour gérer les deux méthodes de suppression
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, String version)
     {
         this.mNeighbours = items;
-        this.callback = callback;
+        this.version = version;
      }
 
-    //ici on utilise la maquette layout pour l'item
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
@@ -58,7 +60,15 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteNeighbourEvent(mNeighbours.get(position)));
+
+                if (version == "base")
+                {
+                    EventBus.getDefault().post(new DeleteNeighbourEvent(mNeighbours.get(position)));
+                }
+                else
+                {
+                    EventBus.getDefault().post(new DeleteFavoriteNeighbourEvent(mNeighbours.get(position)));
+                }
             }
         });
 
@@ -68,8 +78,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 EventBus.getDefault().post(new OpenDetailNeighbourEvent(mNeighbours.get(position)));
             }
         });
-
-        //holder.itemView.setOnClickListener(items -> callback.onClickDetail(position,mNeighbours.get(position)));
 
     }
 
